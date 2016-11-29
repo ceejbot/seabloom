@@ -1,0 +1,13 @@
+[package]
+name = "seabloom"
+version = "0.1.0"
+authors = ["C J Silverio <ceejceej@gmail.com>"]
+description = "Yet Another Bloom Filter, this one using seahash"
+homepage = "https://github.com/ceejbot/seabloom"
+repository = "https://github.com/ceejbot/seabloom"
+license = "ISC"
+readme = "README.md"
+
+[dependencies]
+rand = "0.3.15"
+seahash = "2.1.1"
