@@ -19,9 +19,17 @@ fn new_size()
 }
 
 #[test]
+fn test_create_with_hash_count()
+{
+	// constructs a filter with 4x the requested hash seed count
+	let bloom = Seabloom::create_random_seeds(32, 3);
+	assert_eq!(bloom.seeds.len(), 12);
+}
+
+#[test]
 fn new_zeros()
 {
-	// zeros out its storage buffer"
+	// zeros out its storage buffer
 	let seeds: Vec<u64> = Vec::new();
 	let bloom = Seabloom::new(128, seeds);
 
@@ -36,15 +44,15 @@ fn create_defaults()
 {
 	let filter = Seabloom::create(95);
 	assert_eq!(filter.bitcount, 1048);
-	assert_eq!(filter.seeds.len(), 8);
+	assert_eq!(filter.seeds.len(), 32);
 
 	let f1 = Seabloom::create(148);
 	assert_eq!(f1.bitcount, 1632);
-	assert_eq!(f1.seeds.len(), 8);
+	assert_eq!(f1.seeds.len(), 32);
 
 	let f2 = Seabloom::create(10);
 	assert_eq!(f2.bitcount, 110);
-	assert_eq!(f2.seeds.len(), 8);
+	assert_eq!(f2.seeds.len(), 32);
 }
 
 #[test]

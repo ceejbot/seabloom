@@ -33,7 +33,7 @@ impl Seabloom
     {
         let mut seeds: Vec<u64> = Vec::new();
         let mut rng = rand::thread_rng();
-        for _ in 0..hashcount
+        for _ in 0..hashcount * 4
         {
             seeds.push(rng.gen::<u64>());
         }
@@ -93,11 +93,14 @@ impl Seabloom
 
     pub fn add(&mut self, bytes: &[u8])
     {
-        for seed in self.seeds.clone().iter()
+        let mut i: usize = 0;
+        loop
         {
-            let hash = seahash::hash_seeded(bytes, *seed);
+            let hash = seahash::hash_seeded(bytes, self.seeds[i], self.seeds[i+1], self.seeds[i+2], self.seeds[i+3]);
             let bit = hash % self.bitcount;
             self.setbit(bit);
+            i += 4;
+            if i >= self.seeds.len() { break; }
         }
     }
 
@@ -113,12 +116,15 @@ impl Seabloom
 
     pub fn has(&self, bytes: &[u8]) -> bool
     {
-        for seed in self.seeds.iter()
+        let mut i: usize = 0;
+        loop
         {
-            let hash = seahash::hash_seeded(bytes, *seed);
+            let hash = seahash::hash_seeded(bytes, self.seeds[i], self.seeds[i+1], self.seeds[i+2], self.seeds[i+3]);
             let bit = hash % self.bitcount;
-
             if !self.getbit(bit) { return false; }
+
+            i += 4;
+            if i >= self.seeds.len() { break; }
         }
 
         true
