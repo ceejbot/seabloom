@@ -109,22 +109,22 @@ fn set_slice_shift()
 }
 
 #[test]
-fn add()
+fn add_bytes()
 {
 	let bytes = "cat".as_bytes();
 	let mut filter = Seabloom::create_random_seeds(128, 3);
-	assert_eq!(filter.has(bytes), false);
-	filter.add(bytes);
-	assert_eq!(filter.has(bytes), true);
+	assert_eq!(filter.has_bytes(bytes), false);
+	filter.add_bytes(bytes);
+	assert_eq!(filter.has_bytes(bytes), true);
 }
 
 #[test]
-fn add_str()
+fn add()
 {
 	let mut filter = Seabloom::create_random_seeds(128, 3);
-	assert_eq!(filter.has_str("cat"), false);
-	filter.add_str("cat");
-	assert_eq!(filter.has_str("cat"), true);
+	assert_eq!(filter.has("cat"), false);
+	filter.add("cat");
+	assert_eq!(filter.has("cat"), true);
 }
 
 #[test]
@@ -134,10 +134,10 @@ fn add_list()
 	let vec = vec!["cat", "dog", "wallaby"];
 	filter.add_list(vec);
 
-	assert_eq!(filter.has_str("cat"), true);
-	assert_eq!(filter.has_str("dog"), true);
-	assert_eq!(filter.has_str("wallaby"), true);
-	assert_eq!(filter.has_str("orange"), false);
+	assert_eq!(filter.has("cat"), true);
+	assert_eq!(filter.has("dog"), true);
+	assert_eq!(filter.has("wallaby"), true);
+	assert_eq!(filter.has("orange"), false);
 }
 
 #[test]
@@ -146,7 +146,25 @@ fn clear()
 	let mut filter = Seabloom::create_random_seeds(128, 3);
 	let vec = vec!["cat", "dog", "wallaby"];
 	filter.add_list(vec);
-	assert_eq!(filter.has_str("cat"), true);
+	assert_eq!(filter.has("cat"), true);
 	filter.clear();
-	assert_eq!(filter.has_str("cat"), false);
+	assert_eq!(filter.has("cat"), false);
+}
+
+#[test]
+fn example()
+{
+	let mut filter = Seabloom::create(2000);
+
+	assert_eq!(filter.has("cat"), false);
+	filter.add("cat");
+	assert_eq!(filter.has("cat"), true);
+
+	filter.add_list(vec!["cat", "jaguar", "lion", "tiger", "leopard"]);
+	assert_eq!(filter.has("caracal"), false);
+	assert_eq!(filter.has("jaguar"), true);
+
+	filter.clear();
+	assert_eq!(filter.has("cat"), false);
+
 }

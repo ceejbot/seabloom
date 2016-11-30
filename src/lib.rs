@@ -91,7 +91,7 @@ impl Seabloom
     	(chunk & (0x1 << shift)) != 0
     }
 
-    pub fn add(&mut self, bytes: &[u8])
+    pub fn add_bytes(&mut self, bytes: &[u8])
     {
         let mut i: usize = 0;
         loop
@@ -104,17 +104,17 @@ impl Seabloom
         }
     }
 
-    pub fn add_str(&mut self, item: &str)
+    pub fn add(&mut self, item: &str)
     {
-        self.add(item.as_bytes());
+        self.add_bytes(item.as_bytes());
     }
 
     pub fn add_list(&mut self, items: Vec<&str>)
     {
-        for item in items.iter() { self.add_str(item); }
+        for item in items.iter() { self.add(item); }
     }
 
-    pub fn has(&self, bytes: &[u8]) -> bool
+    pub fn has_bytes(&self, bytes: &[u8]) -> bool
     {
         let mut i: usize = 0;
         loop
@@ -130,9 +130,9 @@ impl Seabloom
         true
     }
 
-    pub fn has_str(&self, item: &str) -> bool
+    pub fn has(&self, item: &str) -> bool
     {
-        self.has(item.as_bytes())
+        self.has_bytes(item.as_bytes())
     }
 
 }
