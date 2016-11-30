@@ -33,7 +33,7 @@ impl Seabloom
     {
         let mut seeds: Vec<u64> = Vec::new();
         let mut rng = rand::thread_rng();
-        for i in 0..hashcount
+        for _ in 0..hashcount
         {
             seeds.push(rng.gen::<u64>());
         }
