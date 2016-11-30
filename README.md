@@ -2,7 +2,7 @@
 
 Yet Another Bloom Filter, this one using [seahash](https://github.com/ticki/tfs/tree/master/seahash).
 
-[![Build Status](https://travis-ci.org/ceejbot/seabloom.svg?branch=master)](https://travis-ci.org/ceejbot/seabloom) [![cargo](https://crates.io/crates/seabloom)(https://img.shields.io/crates/v/seabloom.svg)
+[![Build Status](https://travis-ci.org/ceejbot/seabloom.svg?branch=master)](https://travis-ci.org/ceejbot/seabloom) [![cargo](https://crates.io/crates/seabloom)](https://img.shields.io/crates/v/seabloom.svg)
 
 ## Usage
 
